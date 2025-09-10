@@ -4,11 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 @TeleOp (name = "OpModeMecanum")
 
-public class OpModeMecanum extends LinearOpMode {
+public class MecanumTeste extends LinearOpMode {
 
     DcMotor leftFront;
     DcMotor rightFront;
