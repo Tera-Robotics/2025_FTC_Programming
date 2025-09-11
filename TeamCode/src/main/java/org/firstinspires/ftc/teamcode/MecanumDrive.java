@@ -26,6 +26,9 @@ public class MecanumDrive {
 
         leftBack.setDirection(DcMotorEx.Direction.REVERSE);
         leftFront.setDirection(DcMotorEx.Direction.FORWARD);
+        rightBack.setDirection(DcMotorEx.Direction.FORWARD);
+        rightFront.setDirection(DcMotorEx.Direction.FORWARD);
+
 
 
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -50,8 +53,8 @@ public class MecanumDrive {
         double rightFrontPower = forward - strafe - rotate;
         double rightBackPower = forward + strafe - rotate;
 
-        double maxPower = 1;
-        double maxSpeed = 1;
+        double maxPower = 0.2;
+        double maxSpeed = 0.2;
 
         maxPower = Math.max(maxPower, Math.abs(leftFrontPower));
         maxPower = Math.max(maxPower, Math.abs(leftBackPower));
