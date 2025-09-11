@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import javax.net.ssl.HandshakeCompletedEvent;
 
+
+@TeleOp
 public class MecanumFieldRelative extends OpMode {
 
     MecanumDrive drive = new MecanumDrive();
