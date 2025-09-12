@@ -7,10 +7,12 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 @Autonomous(name = "First Auto", group = "Autonomous")
 
 public class Auto extends LinearOpMode {
-    DcMotor leftFront;
-    DcMotor leftBack;
-    DcMotor rightFront;
-    DcMotor rightBack;
+private DcMotor leftFront, leftBack, rightFront,rightBack;
+
+    static final double COUNTS_PER_MOTOR_REV = 1792;
+    static final double WHELL_DIAMETER_CM = 7.5;
+
+    static final double COUNTS_PER_CM = COUNTS_PER_MOTOR_REV / (WHELL_DIAMETER_CM/Math.PI);
 
 
     public void runOpMode() {
@@ -23,16 +25,12 @@ public class Auto extends LinearOpMode {
         leftBack.setDirection(DcMotorEx.Direction.REVERSE);
         leftFront.setDirection(DcMotorEx.Direction.FORWARD);
 
-        waitForStart();
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(0.5);
-        leftBack.setPower(0.5);
-        rightFront.setPower(0.5);
-        rightBack.setPower(0.5);
-        sleep(10000);
-        stopMotors();
-
-
+        resetEncoder();
 
     }
 
@@ -41,5 +39,12 @@ public class Auto extends LinearOpMode {
         leftBack.setPower(0.0);
         rightFront.setPower(0.0);
         rightBack.setPower(0.0);
+    }
+
+    private void resetEncoder(){
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 }
