@@ -24,16 +24,16 @@ public class MecanumDrive {
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
-        leftBack.setDirection(DcMotorEx.Direction.REVERSE);
-        leftFront.setDirection(DcMotorEx.Direction.FORWARD);
+        leftBack.setDirection(DcMotorEx.Direction.FORWARD);
+        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
+        rightFront.setDirection(DcMotorEx.Direction.FORWARD);
         rightBack.setDirection(DcMotorEx.Direction.FORWARD);
-        rightFront.setDirection(DcMotorEx.Direction.REVERSE);
 
 
 
-        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         imu = hardwareMap.get(IMU.class, "imu");
@@ -48,13 +48,13 @@ public class MecanumDrive {
 
     public void drive(double forward, double strafe, double rotate) {
 
-        double leftFrontPower = forward + strafe + rotate;
-        double leftBackPower = forward - strafe + rotate;
-        double rightFrontPower = forward - strafe - rotate;
-        double rightBackPower = forward + strafe - rotate;
+        double leftFrontPower = forward - strafe - rotate;
+        double leftBackPower = forward + strafe - rotate;
+        double rightFrontPower = forward + strafe + rotate;
+        double rightBackPower = forward - strafe + rotate;
 
-        double maxPower = 0.2;
-        double maxSpeed = 0.2;
+        double maxPower = 0.4;
+        double maxSpeed = 0.4;
 
         maxPower = Math.max(maxPower, Math.abs(leftFrontPower));
         maxPower = Math.max(maxPower, Math.abs(leftBackPower));
@@ -95,7 +95,7 @@ public class MecanumDrive {
         double newForward = r * Math.sin(theta);
         double newStrafe = r * Math.cos(theta);
 
-        this.drive(newForward, newStrafe, rotate);
+        this.drive(-newForward,newStrafe, rotate);
 
     }
 }
