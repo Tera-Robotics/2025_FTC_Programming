@@ -47,7 +47,35 @@ private DcMotor leftFront, leftBack, rightFront,rightBack;
             rightFront.setPower(Math.abs(speed));
             rightBack.setPower(Math.abs(speed));
 
+            while (opModeIsActive() &&
+                    (leftFront.isBusy() || leftBack.isBusy() || rightFront.isBusy() || rightBack.isBusy())) {
+                telemetry.addData("Status","FINISH READY");
+                telemetry.update();
+                idle();
+            }
+
         }
+
+
+    }
+    public void forward (double speed, double cm) {
+        DriveEncoder(speed,cm,cm,cm,cm);
+    }
+    public void Reverse (double speed, double cm) {
+        DriveEncoder(speed,-cm,-cm,-cm,-cm);
+    }
+
+    public void turnRight (double speed, double cm) {
+        DriveEncoder(speed,cm,cm,-cm,-cm);
+    }
+    public void turnLeft (double speed, double cm) {
+        DriveEncoder(speed,-cm,-cm,cm,cm);
+    }
+    public void strafeRight (double speed, double cm) {
+        DriveEncoder(speed,cm,-cm,-cm,cm);
+    }
+    public void strafeLeft (double speed, double cm) {
+        DriveEncoder(speed,-cm,cm,cm,-cm);
     }
 
 
@@ -74,10 +102,14 @@ private DcMotor leftFront, leftBack, rightFront,rightBack;
 
         waitForStart();
 
-        DriveEncoder(DRIVE_SPEED,10,10,10,10);
-        DriveEncoder(TURN_SPEED,10,10,10,10);
+        forward(DRIVE_SPEED,10);
+        turnRight(TURN_SPEED,20);
+
+        stopMotors();
 
         }
+
+
 
     private void stopMotors() {
         leftFront.setPower(0.0);
@@ -92,4 +124,7 @@ private DcMotor leftFront, leftBack, rightFront,rightBack;
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+
+
+
 }
