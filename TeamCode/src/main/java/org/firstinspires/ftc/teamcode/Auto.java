@@ -103,7 +103,8 @@ private DcMotor leftFront, leftBack, rightFront,rightBack;
         waitForStart();
 
         Reverse(DRIVE_SPEED,100);
-        turnRight(TURN_SPEED,60);
+        turnRight(TURN_SPEED,87);
+        Reverse(DRIVE_SPEED,100);
 
         stopMotors();
 
