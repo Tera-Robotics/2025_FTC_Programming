@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class Auto extends LinearOpMode {
 private DcMotor leftFront, leftBack, rightFront,rightBack;
 
-    static final double COUNTS_PER_MOTOR_REV = 448;
+    static final double COUNTS_PER_MOTOR_REV = 358;
     static final double WHELL_DIAMETER_CM = 7.5;
 
     static final double COUNTS_PER_CM = COUNTS_PER_MOTOR_REV / (WHELL_DIAMETER_CM*Math.PI);
@@ -47,11 +47,17 @@ private DcMotor leftFront, leftBack, rightFront,rightBack;
             rightFront.setPower(Math.abs(speed));
             rightBack.setPower(Math.abs(speed));
 
+            telemetry.addData("EncoderRF", rightFront.getCurrentPosition());
+            telemetry.addData("EncoderRB", rightBack.getCurrentPosition());
+            telemetry.addData("EncoderLF", leftFront.getCurrentPosition());
+            telemetry.addData("EncoderLB", leftBack.getCurrentPosition());
+            telemetry.update();
+
+
             while (opModeIsActive() &&
                     (leftFront.isBusy() || leftBack.isBusy() || rightFront.isBusy() || rightBack.isBusy())) {
                 telemetry.addData("Status","FINISH READY");
                 telemetry.update();
-                idle();
             }
 
         }
@@ -103,8 +109,9 @@ private DcMotor leftFront, leftBack, rightFront,rightBack;
         waitForStart();
 
         Reverse(DRIVE_SPEED,100);
-        turnRight(TURN_SPEED,87);
-        Reverse(DRIVE_SPEED,100);
+       // turnRight(TURN_SPEED,87);
+        //Reverse(DRIVE_SPEED,100);
+
 
         stopMotors();
 
