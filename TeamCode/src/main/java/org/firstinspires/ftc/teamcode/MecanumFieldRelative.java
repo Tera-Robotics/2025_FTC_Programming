@@ -4,9 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import javax.net.ssl.HandshakeCompletedEvent;
 
 
 @TeleOp
@@ -16,13 +13,13 @@ public class MecanumFieldRelative extends OpMode {
 
     double forward, strafe, rotate;
 
-    private DcMotorEx testeMotor;
+    //private DcMotorEx testeMotor;
 
     @Override
     public void init () {
 
-        testeMotor = hardwareMap.get(DcMotorEx.class, "testeMotor");
-        testeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //testeMotor = hardwareMap.get(DcMotorEx.class, "testeMotor");
+        //testeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     drive.init(hardwareMap);
 
@@ -31,7 +28,7 @@ public class MecanumFieldRelative extends OpMode {
     @Override
     public void loop() {
 
-        if (gamepad1.a) {
+        /*if (gamepad1.a) {
             testeMotor.setPower(1);
         }
         else if (gamepad1.b) {
@@ -39,12 +36,12 @@ public class MecanumFieldRelative extends OpMode {
         }
         else {
             testeMotor.setPower(0);
-        }
+        }*/
 
 
-    forward = -gamepad1.left_stick_y;
-    strafe = +gamepad1.left_stick_x;
-    rotate = gamepad1.right_stick_x;
+    forward = gamepad1.left_stick_y;
+    strafe = -gamepad1.left_stick_x;
+    rotate = -gamepad1.right_stick_x;
 
     drive.driveFieldRelative(forward,strafe,rotate);
     }
