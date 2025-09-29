@@ -11,7 +11,7 @@ public class Auto extends LinearOpMode {
 private DcMotor leftFront, leftBack, rightFront,rightBack;
 
     static final double COUNTS_PER_MOTOR_REV = 358;
-    static final double WHELL_DIAMETER_CM = 7.5;
+    static final double WHELL_DIAMETER_CM = 9.6;
 
     static final double COUNTS_PER_CM = COUNTS_PER_MOTOR_REV / (WHELL_DIAMETER_CM*Math.PI);
 
@@ -92,7 +92,7 @@ private DcMotor leftFront, leftBack, rightFront,rightBack;
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
 
-        leftBack.setDirection(DcMotorEx.Direction.FORWARD);
+        leftBack.setDirection(DcMotorEx.Direction.REVERSE);
         leftFront.setDirection(DcMotorEx.Direction.REVERSE);
         rightFront.setDirection(DcMotorEx.Direction.FORWARD);
         rightBack.setDirection(DcMotorEx.Direction.FORWARD);
