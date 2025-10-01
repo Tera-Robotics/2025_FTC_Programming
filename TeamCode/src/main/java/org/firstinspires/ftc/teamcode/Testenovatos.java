@@ -1,34 +1,57 @@
 package org.firstinspires.ftc.teamcode;
 
-import static java.lang.Thread.sleep;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
-
-
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp
 public class Testenovatos extends OpMode {
 
-    public void init () {
-        //Initialize hardware
-        DcMotor leftMotor = hardwareMap.get(DcMotor.class, "left_drive");
-        DcMotor rightMotor = hardwareMap.get(DcMotor.class, "right_drive");
+    private DcMotor leftFront, rightFront, leftBack, rightBack;
 
-        // Wait for the game to start (driver presses PLAY)
+    public double forward,strafe,rotate;
 
-        // Move forward at half power for 2 seconds
-        leftMotor.setPower(0.5);
-        rightMotor.setPower(0.5);
+    @Override
+    public void init(){
+        leftFront = hardwareMap.get(DcMotor.class, "leftFront");
+        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+        leftBack = hardwareMap.get(DcMotor.class, "leftBack");
+        rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
-        // Stop motors
-        leftMotor.setPower(0);
-        rightMotor.setPower(0);
+        leftBack.setDirection(DcMotorEx.Direction.REVERSE);
+        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
+        rightFront.setDirection(DcMotorEx.Direction.FORWARD);
+        rightBack.setDirection(DcMotorEx.Direction.FORWARD);
+
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void loop () {
+        double leftFrontPower = forward - strafe - rotate;
+        double leftBackPower  = forward + strafe - rotate;
+        double rightFrontPower = forward + strafe + rotate;
+        double rightBackPower  = forward - strafe + rotate;
 
+        forward = -gamepad1.left_stick_y;
+        strafe = -gamepad1.left_stick_x;
+        rotate = -gamepad1.right_stick_x;
+
+
+
+        double maxPower = 0.5;
+
+        maxPower = Math.max(maxPower, Math.abs(leftFrontPower));
+        maxPower = Math.max(maxPower, Math.abs(leftBackPower));
+        maxPower = Math.max(maxPower, Math.abs(rightFrontPower));
+        maxPower = Math.max(maxPower, Math.abs(rightBackPower));
+
+        leftFront.setPower(leftFrontPower / maxPower);
+        leftBack.setPower(leftBackPower / maxPower);
+        rightFront.setPower(rightFrontPower / maxPower);
+        rightBack.setPower(rightBackPower / maxPower);
     }
 }
-
