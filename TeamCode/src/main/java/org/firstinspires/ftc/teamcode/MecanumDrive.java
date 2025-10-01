@@ -53,7 +53,7 @@ public class MecanumDrive {
         double rightFrontPower = forward + strafe + rotate;
         double rightBackPower = forward - strafe + rotate;
 
-        double maxPower = 0.4;
+        double maxPower = 0.8;
         double maxSpeed = 0.4;
 
         maxPower = Math.max(maxPower, Math.abs(leftFrontPower));
