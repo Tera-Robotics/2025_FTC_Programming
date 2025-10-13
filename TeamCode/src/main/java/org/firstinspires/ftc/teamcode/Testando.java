@@ -19,12 +19,19 @@ public class Testando extends OpMode {
         rightBack = hardwareMap.dcMotor.get("rightBack");
 
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        // Usar encoders nos motores
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
     @Override
     public void loop() {
-        double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+        double y = -gamepad1.left_stick_y;
         double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
         double rx = gamepad1.right_stick_x;
 

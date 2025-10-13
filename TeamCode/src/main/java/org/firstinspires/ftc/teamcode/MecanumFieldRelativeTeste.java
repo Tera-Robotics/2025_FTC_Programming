@@ -38,7 +38,7 @@ public class MecanumFieldRelativeTeste extends OpMode {
 
 
     forward = gamepad1.left_stick_y;
-    strafe = -gamepad1.left_stick_x;
+    strafe = -gamepad1.left_stick_x*1.1;
     rotate = -gamepad1.right_stick_x;
 
     drive.driveFieldRelative(forward,strafe,rotate);
