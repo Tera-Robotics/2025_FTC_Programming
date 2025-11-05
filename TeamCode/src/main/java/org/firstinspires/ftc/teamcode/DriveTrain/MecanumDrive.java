@@ -1,10 +1,8 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.DriveTrain;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DcMotorImplEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -40,8 +38,8 @@ public class MecanumDrive {
         imu = hardwareMap.get(IMU.class, "imu");
 
         RevHubOrientationOnRobot revHubOrientation = new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
+                RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP);
 
         imu.initialize(new IMU.Parameters(revHubOrientation));
 
