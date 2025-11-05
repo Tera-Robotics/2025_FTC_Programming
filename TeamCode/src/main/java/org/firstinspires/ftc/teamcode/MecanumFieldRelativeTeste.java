@@ -3,12 +3,29 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.states.Intake;
+import org.firstinspires.ftc.teamcode.states.Shooter;
+
 
 @TeleOp
 public class MecanumFieldRelativeTeste extends OpMode {
 
-    MecanumDrive drive = new MecanumDrive();
+    private enum RobotState{
 
+        DEFAULT,
+
+        PREPARAR,
+
+        EXPELIR,
+
+        ATIRAR,
+
+    }
+
+    RobotState robotState = RobotState.DEFAULT;
+    MecanumDrive drive = new MecanumDrive();
+    Intake intake = null;
+    Shooter shooter = null;
     double forward, strafe, rotate;
 
     //private DcMotorEx testeMotor;
@@ -20,11 +37,33 @@ public class MecanumFieldRelativeTeste extends OpMode {
         //testeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     drive.init(hardwareMap);
+    intake = new Intake(hardwareMap);
+    shooter = new Shooter(hardwareMap);
 
     }
 
     @Override
     public void loop() {
+
+        boolean buttonX = gamepad1.x;
+        boolean buttonY = gamepad1.y;
+        boolean buttonA = gamepad1.a;
+
+     switch (robotState){
+         case DEFAULT:
+             intake.starCollectBall();
+             shooter.shootDefault();
+
+             if (buttonX) robotState = robotState.PREPARAR;
+             break;
+         case PREPARAR:
+             intake.stopCollectBall();
+             shooter.shootForGoal();
+
+
+
+
+     }
 
         /*if (gamepad1.a) {
             testeMotor.setPower(1);

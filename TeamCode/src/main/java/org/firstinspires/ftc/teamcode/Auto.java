@@ -29,7 +29,7 @@ private IMU imu;
 
     private int     rightFrontTarget    = 0;
     private int     rightBackTarget   = 0;
-    static final double COUNTS_PER_MOTOR_REV = 358;
+    static final double COUNTS_PER_MOTOR_REV = 448;
     static final double WHELL_DIAMETER_CM = 9.6;
 
     static final double COUNTS_PER_CM = COUNTS_PER_MOTOR_REV / (WHELL_DIAMETER_CM*Math.PI);
