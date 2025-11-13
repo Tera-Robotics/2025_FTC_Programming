@@ -35,19 +35,19 @@ public class FinalOpMode extends OpMode {
     @Override
     public void init () {
 
-        testeMotor = hardwareMap.get(DcMotorEx.class, "testeMotor");
-        testeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+       // testeMotor = hardwareMap.get(DcMotorEx.class, "testeMotor");
+        //testeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
     drive.init(hardwareMap);
-    intake = new Intake(hardwareMap);
-    shooter = new Shooter(hardwareMap);
+    //intake = new Intake(hardwareMap);
+   // shooter = new Shooter(hardwareMap);
 
     }
 
     @Override
     public void loop() {
 
-        boolean buttonX = gamepad1.x;
+        /*boolean buttonX = gamepad1.x;
         boolean buttonY = gamepad1.y;
         boolean buttonA = gamepad1.a;
 
@@ -62,6 +62,7 @@ public class FinalOpMode extends OpMode {
              intake.stopCollectBall();
              shooter.shootForGoal();
 
+
      }
 
         if (gamepad1.a) {
@@ -72,7 +73,7 @@ public class FinalOpMode extends OpMode {
         }
         else {
             testeMotor.setPower(0);
-        }
+        }*/
 
 
     forward = gamepad1.left_stick_y;
