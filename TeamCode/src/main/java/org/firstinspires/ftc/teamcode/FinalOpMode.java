@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.DriveTrain.MecanumDrive;
+import org.firstinspires.ftc.teamcode.DriveTrain.MecanumDriveFieldRelative;
 import org.firstinspires.ftc.teamcode.states.Intake;
 import org.firstinspires.ftc.teamcode.states.Shooter;
 
@@ -25,7 +25,7 @@ public class FinalOpMode extends OpMode {
     }
 
     RobotState robotState = RobotState.DEFAULT;
-    MecanumDrive drive = new MecanumDrive();
+    MecanumDriveFieldRelative drive = new MecanumDriveFieldRelative();
     Intake intake = null;
     Shooter shooter = null;
     double forward, strafe, rotate;
@@ -76,8 +76,8 @@ public class FinalOpMode extends OpMode {
         }*/
 
 
-    forward = gamepad1.left_stick_y;
-    strafe = -gamepad1.left_stick_x*1.1;
+    forward = -gamepad1.left_stick_y;
+    strafe = gamepad1.left_stick_x*1.3;
     rotate = -gamepad1.right_stick_x;
 
     drive.driveFieldRelative(forward,strafe,rotate);

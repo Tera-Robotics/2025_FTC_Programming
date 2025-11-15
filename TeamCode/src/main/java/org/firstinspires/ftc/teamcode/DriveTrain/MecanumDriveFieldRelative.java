@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 
 
-public class MecanumDrive {
+public class MecanumDriveFieldRelative {
 
     private DcMotor leftFront, rightFront, leftBack, rightBack;
     private IMU imu;
@@ -47,10 +47,10 @@ public class MecanumDrive {
 
     public void drive(double forward, double strafe, double rotate) {
 
-        double leftFrontPower = forward - strafe - rotate;
-        double leftBackPower = forward + strafe - rotate;
-        double rightFrontPower = forward + strafe + rotate;
-        double rightBackPower = forward - strafe + rotate;
+        double leftFrontPower = forward + strafe + rotate;
+        double leftBackPower = forward - strafe + rotate;
+        double rightFrontPower = forward - strafe - rotate;
+        double rightBackPower = forward + strafe - rotate;
 
         double maxPower = 1;
         double maxSpeed = 0.8;
