@@ -7,6 +7,7 @@ public class MecanumDriveRobotRelative {
 
     private DcMotor leftFront, rightFront, leftBack, rightBack;
 
+
     public void init (HardwareMap hardwareMap) {
 
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
@@ -27,7 +28,7 @@ public class MecanumDriveRobotRelative {
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void drive (double forward, double strafe, double rotate) {
+    public void driveRobot (double forward, double strafe, double rotate) {
 
         double leftFrontPower = forward + strafe + rotate;
         double leftBackPower = forward - strafe + rotate;

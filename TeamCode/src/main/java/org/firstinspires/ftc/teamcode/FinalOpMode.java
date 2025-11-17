@@ -24,7 +24,17 @@ public class FinalOpMode extends OpMode {
 
     }
 
+    private enum Marchas {
+        ALTA,
+
+        MEDIA,
+
+        BAIXA,
+    }
+
     RobotState robotState = RobotState.DEFAULT;
+
+    Marchas marchaAtual = Marchas.ALTA;
     MecanumDriveFieldRelative drive = new MecanumDriveFieldRelative();
     Intake intake = null;
     Shooter shooter = null;
@@ -46,6 +56,26 @@ public class FinalOpMode extends OpMode {
 
     @Override
     public void loop() {
+
+        boolean leftStick = gamepad1.leftStickButtonWasPressed();
+
+        switch (marchaAtual){
+            case ALTA:
+                drive.setMaxSpeed(0.9);
+                if (leftStick) marchaAtual = Marchas.MEDIA;
+                break;
+            case MEDIA:
+                drive.setMaxSpeed(0.6);
+                if (leftStick) marchaAtual = Marchas.BAIXA;
+                break;
+            case BAIXA:
+                drive.setMaxSpeed(0.3);
+                if (leftStick) marchaAtual = Marchas.ALTA;
+                break;
+        }
+
+        telemetry.addData("Marcha Atual", marchaAtual);
+        telemetry.update();
 
         /*boolean buttonX = gamepad1.x;
         boolean buttonY = gamepad1.y;
@@ -81,5 +111,7 @@ public class FinalOpMode extends OpMode {
     rotate = -gamepad1.right_stick_x;
 
     drive.driveFieldRelative(forward,strafe,rotate);
+
+
     }
 }

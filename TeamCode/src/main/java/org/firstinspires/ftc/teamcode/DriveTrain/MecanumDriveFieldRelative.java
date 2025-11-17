@@ -7,13 +7,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-
-
-
 public class MecanumDriveFieldRelative {
 
     private DcMotor leftFront, rightFront, leftBack, rightBack;
     private IMU imu;
+
+    public double maxSpeedDefault = 0.8;
 
 
     public void init(HardwareMap hardwareMap) {
@@ -23,12 +22,10 @@ public class MecanumDriveFieldRelative {
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
-        leftBack.setDirection(DcMotorEx.Direction.REVERSE);
-        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
-        rightFront.setDirection(DcMotorEx.Direction.FORWARD);
-        rightBack.setDirection(DcMotorEx.Direction.FORWARD);
-
-
+        leftBack.setDirection(DcMotor.Direction.REVERSE);
+        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        rightFront.setDirection(DcMotor.Direction.FORWARD);
+        rightBack.setDirection(DcMotor.Direction.FORWARD);
 
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -39,11 +36,12 @@ public class MecanumDriveFieldRelative {
 
         RevHubOrientationOnRobot revHubOrientation = new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+        );
 
         imu.initialize(new IMU.Parameters(revHubOrientation));
-
     }
+
 
     public void drive(double forward, double strafe, double rotate) {
 
@@ -52,54 +50,37 @@ public class MecanumDriveFieldRelative {
         double rightFrontPower = forward - strafe - rotate;
         double rightBackPower = forward + strafe - rotate;
 
-        double maxPower = 1;
-        double maxSpeed = 0.8;
+        double maxPower = 1.0;
+        double limit = this.maxSpeedDefault;
 
         maxPower = Math.max(maxPower, Math.abs(leftFrontPower));
         maxPower = Math.max(maxPower, Math.abs(leftBackPower));
         maxPower = Math.max(maxPower, Math.abs(rightFrontPower));
         maxPower = Math.max(maxPower, Math.abs(rightBackPower));
 
-        leftFront.setPower(maxSpeed * (leftFrontPower / maxPower));
-        leftBack.setPower(maxSpeed * (leftBackPower / maxPower));
-        rightFront.setPower(maxSpeed * (rightFrontPower / maxPower));
-        rightBack.setPower(maxSpeed * (rightBackPower / maxPower));
-
-
-
-           /* x = gamepad1.left_stick_x;
-            y = gamepad1.left_stick_y;
-            turn = - gamepad1.right_stick_x;
-
-            denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
-
-            leftFrontPower = ((y + x + turn) / denominator);
-            leftBackPower = ((y - x + turn) / denominator);
-            rightFrontPower  = ((y - x - turn) / denominator);
-            rightBackPower = ((y + x - turn) / denominator);
-
-            leftFront.setPower(leftFrontPower);
-            leftBack.setPower(leftBackPower);
-            rightFront.setPower(rightFrontPower);
-            rightBack.setPower(rightBackPower);*/
-
+        leftFront.setPower(limit * (leftFrontPower / maxPower));
+        leftBack.setPower(limit * (leftBackPower / maxPower));
+        rightFront.setPower(limit * (rightFrontPower / maxPower));
+        rightBack.setPower(limit * (rightBackPower / maxPower));
     }
 
+
     public void driveFieldRelative(double forward, double strafe, double rotate) {
+
         double theta = Math.atan2(forward, strafe);
         double r = Math.hypot(strafe, forward);
 
-        theta = AngleUnit.normalizeRadians(theta - imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS));
+        theta = AngleUnit.normalizeRadians(
+                theta - imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS)
+        );
 
         double newForward = r * Math.sin(theta);
         double newStrafe = r * Math.cos(theta);
 
-        this.drive(-newForward,newStrafe, rotate);
+        drive(-newForward, newStrafe, rotate);
+    }
 
+    public void setMaxSpeed(double speed) {
+        this.maxSpeedDefault = speed;
     }
 }
-
-
-
-
-
