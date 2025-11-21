@@ -4,50 +4,53 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-
 public class Shooter {
 
+    private static final String SHOOTER_LEFT = "shooterLeft";
+    private static final String SHOOTER_RIGHT = "shooterRight";
 
-    private static final String SHOOTER_NAME = "shooter";
+    private static double POWER_UP = 0.9;
+    private static double POWER_DOWN = -0.9;
 
-    private static double SHOOTER_DEFAULT = 0.4;
-    private static double SHOOTTING = 0.6;
+    public DcMotorEx leftMotorShoot, rightMotorShoot;
 
-    private static final int RPM_TO_SHOOT = 3000;
+    public Shooter(HardwareMap hardwareMap) {
 
-    private static final int RPM_DEFAULT = 600;
+        leftMotorShoot = hardwareMap.get(DcMotorEx.class, SHOOTER_LEFT);
+        rightMotorShoot = hardwareMap.get(DcMotorEx.class, SHOOTER_RIGHT);
 
-    private static final int CPR = 28;
-    private static final int MAX_RPM = 6000;
+        leftMotorShoot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightMotorShoot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-    private static final int MAX_TICKS_PER_SECOND = (CPR / MAX_RPM) * 60;
+        leftMotorShoot.setDirection(DcMotor.Direction.REVERSE);
+        rightMotorShoot.setDirection(DcMotor.Direction.FORWARD);
+    }
 
-    public DcMotorEx shooterMotor;
+    /** SUBIR por 1s */
+    public void moveToCharging() {
 
-    private int setPoint = 0;
+        leftMotorShoot.setPower(POWER_UP);
+        rightMotorShoot.setPower(POWER_UP);
+    }
 
-    public Shooter (HardwareMap hardwareMap){
+    /** DESCER por 1s */
+    public void moveToShoot() {
 
-        shooterMotor = hardwareMap.get(DcMotorEx.class, SHOOTER_NAME);
+        leftMotorShoot.setPower(POWER_DOWN);
+        rightMotorShoot.setPower(POWER_DOWN);
 
     }
 
-    public void shootDefault() {
-        setVelocityRPM(RPM_DEFAULT);
+    /** SUBIR por 1s */
+    public void moveToDefault() {
+
+        leftMotorShoot.setPower(POWER_UP);
+        rightMotorShoot.setPower(POWER_UP);
     }
 
-    public void shootForGoal (){
-        setVelocityRPM(RPM_TO_SHOOT);
-    }
-
-    public void setVelocityRPM(int rpm) {
-        setPoint = rpm;
-       double tickesPerSecond = ((double) rpm/MAX_RPM) * MAX_TICKS_PER_SECOND;
-       shooterMotor.setVelocity(tickesPerSecond);
-    }
-
-    public int getVelocityInRPM(){
-        return(int)((shooterMotor.getVelocity()/MAX_TICKS_PER_SECOND));
+    public void stop() {
+        leftMotorShoot.setPower(0);
+        rightMotorShoot.setPower(0);
     }
 
 }

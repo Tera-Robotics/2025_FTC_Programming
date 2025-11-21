@@ -32,14 +32,14 @@ public class MecanumDriveFieldRelative {
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        imu = hardwareMap.get(IMU.class, "imu");
+        /*imu = hardwareMap.get(IMU.class, "imu");
 
         RevHubOrientationOnRobot revHubOrientation = new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
         );
 
-        imu.initialize(new IMU.Parameters(revHubOrientation));
+        imu.initialize(new IMU.Parameters(revHubOrientation));*/
     }
 
 
@@ -65,7 +65,7 @@ public class MecanumDriveFieldRelative {
     }
 
 
-    public void driveFieldRelative(double forward, double strafe, double rotate) {
+    /*public void driveFieldRelative(double forward, double strafe, double rotate) {
 
         double theta = Math.atan2(forward, strafe);
         double r = Math.hypot(strafe, forward);
@@ -77,8 +77,8 @@ public class MecanumDriveFieldRelative {
         double newForward = r * Math.sin(theta);
         double newStrafe = r * Math.cos(theta);
 
-        drive(-newForward, newStrafe, rotate);
-    }
+        drive(newForward, newStrafe, rotate);
+    }*/
 
     public void setMaxSpeed(double speed) {
         this.maxSpeedDefault = speed;

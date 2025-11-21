@@ -2,7 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.DriveTrain.MecanumDriveFieldRelative;
 import org.firstinspires.ftc.teamcode.states.Intake;
@@ -20,7 +22,7 @@ public class FinalOpMode extends OpMode {
 
         EXPELIR,
 
-        ATIRAR,
+        DESLIGA,
 
     }
 
@@ -33,6 +35,7 @@ public class FinalOpMode extends OpMode {
     }
 
     RobotState robotState = RobotState.DEFAULT;
+    RobotState previousRobotState = robotState;
 
     Marchas marchaAtual = Marchas.ALTA;
     MecanumDriveFieldRelative drive = new MecanumDriveFieldRelative();
@@ -40,19 +43,25 @@ public class FinalOpMode extends OpMode {
     Shooter shooter = null;
     double forward, strafe, rotate;
 
-    private DcMotorEx testeMotor;
+
 
     @Override
     public void init () {
 
-       // testeMotor = hardwareMap.get(DcMotorEx.class, "testeMotor");
-        //testeMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
     drive.init(hardwareMap);
-    //intake = new Intake(hardwareMap);
-   // shooter = new Shooter(hardwareMap);
+    intake = new Intake(hardwareMap);
+   shooter = new Shooter(hardwareMap);
 
     }
+
+    boolean previousXButtonValue = false;
+    boolean previousAButtonValue = false;
+    boolean previousYButtonValue = false;
+
+    boolean isPreviousBButtonValue = false;
+
+
 
     @Override
     public void loop() {
@@ -74,43 +83,62 @@ public class FinalOpMode extends OpMode {
                 break;
         }
 
-        telemetry.addData("Marcha Atual", marchaAtual);
-        telemetry.update();
-
-        /*boolean buttonX = gamepad1.x;
+        boolean buttonX = gamepad1.x;
         boolean buttonY = gamepad1.y;
         boolean buttonA = gamepad1.a;
+        boolean buttonB = gamepad1.b;
+        boolean triggerRight = gamepad1.right_bumper;
+        boolean triggerLeft = gamepad1.left_bumper;
+
+
 
      switch (robotState){
          case DEFAULT:
-             intake.starCollectBall();
-             shooter.shootDefault();
-
-             if (buttonX) robotState = robotState.PREPARAR;
+                intake.starCollectBall();
+             if(buttonX && !previousXButtonValue) {previousRobotState = robotState;
+                 robotState =robotState.PREPARAR;}
              break;
          case PREPARAR:
+             intake.defaultCollect();
+             if(buttonX && !previousXButtonValue){ previousRobotState = robotState;
+             robotState = robotState.DESLIGA;}
+             break;
+         case DESLIGA:
              intake.stopCollectBall();
-             shooter.shootForGoal();
-
-
+         case EXPELIR:
+         if(buttonA && !previousAButtonValue) {
+             intake.expelBall();
+             break;
+         }
      }
 
-        if (gamepad1.a) {
-            testeMotor.setPower(1);
+        if(buttonB && !isPreviousBButtonValue) {
+           robotState = previousRobotState;
         }
-        else if (gamepad1.b) {
-            testeMotor.setPower(-1);
+        if (triggerRight){
+            shooter.moveToShoot();
+        }
+        else if (triggerLeft){
+            shooter.moveToCharging();
         }
         else {
-            testeMotor.setPower(0);
-        }*/
+            shooter.stop();
+        }
 
 
-    forward = -gamepad1.left_stick_y;
-    strafe = gamepad1.left_stick_x*1.3;
+
+    forward = gamepad1.left_stick_y;
+    strafe = -gamepad1.left_stick_x*1.1;
     rotate = -gamepad1.right_stick_x;
 
-    drive.driveFieldRelative(forward,strafe,rotate);
+    drive.drive(forward,strafe,rotate);
+
+        telemetry.addData("Marcha atual", marchaAtual);
+        telemetry.addData("Estado atual do robo", robotState);
+        telemetry.addData("Estado anterior do robo", previousRobotState);
+       // telemetry.addData("Encoders", shooter.encoderValues());
+        telemetry.update();
+
 
 
     }
