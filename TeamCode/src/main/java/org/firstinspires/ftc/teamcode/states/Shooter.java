@@ -9,8 +9,8 @@ public class Shooter {
     private static final String SHOOTER_LEFT = "shooterLeft";
     private static final String SHOOTER_RIGHT = "shooterRight";
 
-    private static double POWER_UP = 0.9;
-    private static double POWER_DOWN = -0.9;
+    private static double POWER_UP = 0.8;
+    private static double POWER_DOWN = -1;
 
     public DcMotorEx leftMotorShoot, rightMotorShoot;
 

@@ -28,7 +28,10 @@ android {
 }
 
 dependencies {
-    implementation 'com.acmerobotics.dashboard:dashboard:0.4.6'
+    implementation 'com.acmerobotics.dashboard:dashboard:0.5.1'
+}
+repositories {
+    maven { url 'https://maven.brott.dev/' }
 }
 
 apply from: '../build.dependencies.gradle'

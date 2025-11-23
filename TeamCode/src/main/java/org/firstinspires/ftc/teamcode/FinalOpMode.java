@@ -61,25 +61,36 @@ public class FinalOpMode extends OpMode {
 
     boolean isPreviousBButtonValue = false;
 
+    boolean previousXButtonValue2 = false;
+
+    boolean previousBButtonValue2 = false;
+
+    boolean isPreviousYButtonValue = false;
+
 
 
     @Override
     public void loop() {
 
-        boolean leftStick = gamepad1.leftStickButtonWasPressed();
+        boolean buttonX2 = gamepad2.x;
+        boolean buttonY2 = gamepad2.y;
+        boolean buttonB2 = gamepad2.b;
 
         switch (marchaAtual){
             case ALTA:
                 drive.setMaxSpeed(0.9);
-                if (leftStick) marchaAtual = Marchas.MEDIA;
+                if (buttonY2 && !isPreviousYButtonValue) {marchaAtual = Marchas.MEDIA;}
+                else if (buttonB2 && !previousBButtonValue2){marchaAtual = Marchas.BAIXA;;}
                 break;
             case MEDIA:
                 drive.setMaxSpeed(0.6);
-                if (leftStick) marchaAtual = Marchas.BAIXA;
+                if (buttonB2 && !previousBButtonValue2) {marchaAtual = Marchas.BAIXA;}
+                else if (buttonX2 && !previousXButtonValue2){marchaAtual = Marchas.ALTA;}
                 break;
             case BAIXA:
                 drive.setMaxSpeed(0.3);
-                if (leftStick) marchaAtual = Marchas.ALTA;
+                if (buttonX2 && !previousXButtonValue2) {marchaAtual = Marchas.ALTA;}
+                else if (buttonB2 && !previousBButtonValue2){marchaAtual = Marchas.MEDIA;}
                 break;
         }
 
@@ -97,24 +108,38 @@ public class FinalOpMode extends OpMode {
                 intake.starCollectBall();
              if(buttonX && !previousXButtonValue) {previousRobotState = robotState;
                  robotState =robotState.PREPARAR;}
+             else if (buttonY && !previousYButtonValue){ previousRobotState = robotState;
+                 robotState = robotState.DESLIGA;}
              break;
          case PREPARAR:
              intake.defaultCollect();
-             if(buttonX && !previousXButtonValue){ previousRobotState = robotState;
+             if(buttonY && !previousYButtonValue){ previousRobotState = robotState;
              robotState = robotState.DESLIGA;}
+             else if (buttonA && !previousAButtonValue){previousRobotState = robotState;
+                 robotState = robotState.DEFAULT;
+             }
              break;
          case DESLIGA:
              intake.stopCollectBall();
-         case EXPELIR:
-         if(buttonA && !previousAButtonValue) {
-             intake.expelBall();
+             if (buttonB && !previousXButtonValue) {previousRobotState = robotState;
+                 robotState = robotState.EXPELIR;}
+             else if (buttonA && !previousAButtonValue){previousRobotState = robotState;
+                 robotState = robotState.DEFAULT;
+             }
              break;
+         case EXPELIR:
+             intake.expelBall();
+             if(buttonA && !previousAButtonValue) {previousRobotState = robotState;
+                 robotState = robotState.DEFAULT;
          }
+            else if(buttonY && !previousYButtonValue){ previousRobotState = robotState;
+                 robotState = robotState.DESLIGA;}
+             break;
      }
 
-        if(buttonB && !isPreviousBButtonValue) {
+        /*if(buttonB && !isPreviousBButtonValue) {
            robotState = previousRobotState;
-        }
+        }*/
         if (triggerRight){
             shooter.moveToShoot();
         }
@@ -127,9 +152,9 @@ public class FinalOpMode extends OpMode {
 
 
 
-    forward = gamepad1.left_stick_y;
-    strafe = -gamepad1.left_stick_x*1.1;
-    rotate = -gamepad1.right_stick_x;
+    forward = gamepad2.left_stick_y;
+    strafe = -gamepad2.left_stick_x*1.1;
+    rotate = -gamepad2.right_stick_x;
 
     drive.drive(forward,strafe,rotate);
 
@@ -138,6 +163,15 @@ public class FinalOpMode extends OpMode {
         telemetry.addData("Estado anterior do robo", previousRobotState);
        // telemetry.addData("Encoders", shooter.encoderValues());
         telemetry.update();
+
+        previousXButtonValue2 = buttonX2;
+        previousBButtonValue2 = buttonB2;
+        isPreviousYButtonValue = buttonY2;
+
+        previousXButtonValue = buttonX;
+        previousAButtonValue = buttonA;
+        previousYButtonValue = buttonY;
+        isPreviousBButtonValue = buttonB;
 
 
 

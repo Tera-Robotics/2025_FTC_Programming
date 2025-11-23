@@ -35,12 +35,12 @@ public class MecanumDriveFieldRelative {
         /*imu = hardwareMap.get(IMU.class, "imu");
 
         RevHubOrientationOnRobot revHubOrientation = new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
-                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
+                RevHubOrientationOnRobot.LogoFacingDirection.DOWN,
+                RevHubOrientationOnRobot.UsbFacingDirection.LEFT
         );
 
-        imu.initialize(new IMU.Parameters(revHubOrientation));*/
-    }
+        imu.initialize(new IMU.Parameters(revHubOrientation));
+    */}
 
 
     public void drive(double forward, double strafe, double rotate) {
@@ -65,7 +65,7 @@ public class MecanumDriveFieldRelative {
     }
 
 
-    /*public void driveFieldRelative(double forward, double strafe, double rotate) {
+   /* public void driveFieldRelative(double forward, double strafe, double rotate) {
 
         double theta = Math.atan2(forward, strafe);
         double r = Math.hypot(strafe, forward);
