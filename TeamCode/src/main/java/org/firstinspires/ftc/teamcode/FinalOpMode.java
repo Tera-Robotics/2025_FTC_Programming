@@ -157,7 +157,7 @@ public class FinalOpMode extends OpMode {
     rotate = -gamepad2.right_stick_x;
 
     drive.drive(forward,strafe,rotate);
-
+/*
         telemetry.addData("Marcha atual", marchaAtual);
         telemetry.addData("Estado atual do robo", robotState);
         telemetry.addData("Estado anterior do robo", previousRobotState);
@@ -171,7 +171,7 @@ public class FinalOpMode extends OpMode {
         previousXButtonValue = buttonX;
         previousAButtonValue = buttonA;
         previousYButtonValue = buttonY;
-        isPreviousBButtonValue = buttonB;
+        isPreviousBButtonValue = buttonB;*/
 
 
 
