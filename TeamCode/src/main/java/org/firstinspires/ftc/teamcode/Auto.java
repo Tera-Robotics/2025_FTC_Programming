@@ -105,18 +105,18 @@ private IMU imu;
         //Segundo ciclo de shooting
         shooter.stop();
         driveStraight(0.6,70,0,0.6);
-        turnToHeading(TURN_SPEED,40,0.6);
+        turnToHeading(TURN_SPEED,40,1);
         strafe(STRAFE_SPEED,80,0.6);
         intake.starCollectBall();
         shooter.moveToDefault();
-        driveStraight(0.3,-80,0,0.3);
+        driveStraight(0.3,-70,0,0.3);
         shooter.stop();
         sleep(800);
         intake.stopCollectBall();
         driveStraight(0.2,30,0,0.2);
         strafe(0.6,-120,1);
         turnToHeading(TURN_SPEED,1,0.8);
-        driveStraight(1,-45,0,0.8);
+        driveStraight(1,-30,0,0.8);
         shooter.moveToDefault();
         sleep(1000);
         shooter.moveToShoot();
@@ -125,26 +125,24 @@ private IMU imu;
 
         //Terceiro ciclo de shooting
         driveStraight(0.6,70,0,0.6);
-        turnToHeading(TURN_SPEED,40,0.6);
-        strafe(STRAFE_SPEED,170,0.7);
+        turnToHeading(TURN_SPEED,41,1);
+        strafe(STRAFE_SPEED,165,0.7);
         intake.starCollectBall();
         shooter.moveToDefault();
-        driveStraight(0.3,-80,0,0.3);
+        driveStraight(0.2,-80,0,0.2);
         shooter.stop();
         sleep(800);
         intake.stopCollectBall();
         driveStraight(0.2,20,0,0.2);
-        strafe(0.6,-210,0.8);
-        turnToHeading(TURN_SPEED,2,0.8);
-        driveStraight(1,-35,0,0.8);
+        strafe(0.6,-180,1);
+        turnToHeading(TURN_SPEED,2,1);
+        driveStraight(1,-30,0,0.8);
         shooter.moveToDefault();
         sleep(1000);
         shooter.moveToShoot();
         sleep(1000);
         shooter.stop();
-
-
-
+        strafe(0.6,180,0.8);
 
 
         telemetry.addData("Path", "Complete");
