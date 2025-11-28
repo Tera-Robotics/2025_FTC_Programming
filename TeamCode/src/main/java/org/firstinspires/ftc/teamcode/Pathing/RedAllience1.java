@@ -37,8 +37,8 @@ public class RedAllience1 extends LinearOpMode {
         //Segundo ciclo de shooting
         shooter.stop();
         auto.driveStraight(0.6, 70, 0, 0.6);
-        auto.turnToHeading(TURN_SPEED, -40, 1);
-        auto.strafe(STRAFE_SPEED, -80, 0.6);
+        auto.turnToHeading(TURN_SPEED, -39, 1);
+        auto.strafe(STRAFE_SPEED, -70, 0.6);
         intake.starCollectBall();
         shooter.moveToDefault();
         auto.driveStraight(0.3, -70, 0, 0.3);
@@ -46,7 +46,7 @@ public class RedAllience1 extends LinearOpMode {
         sleep(800);
         intake.stopCollectBall();
         auto.driveStraight(0.2, 30, 0, 0.2);
-        auto.strafe(0.6, 120, 1);
+        auto.strafe(0.6, 110, 1);
         auto.turnToHeading(TURN_SPEED, -1, 0.8);
         auto.driveStraight(1, -30, 0, 0.8);
         shooter.moveToDefault();
@@ -56,9 +56,10 @@ public class RedAllience1 extends LinearOpMode {
         shooter.stop();
 
         //Terceiro ciclo de shooting
+
         auto.driveStraight(0.6, 60, 0, 0.6);
-        auto.turnToHeading(TURN_SPEED, -39, 1);
-        auto.strafe(STRAFE_SPEED, -165, 0.8);
+        auto.turnToHeading(TURN_SPEED, -42, 1);
+        auto.strafe(STRAFE_SPEED, -175, 0.8);
         intake.starCollectBall();
         shooter.moveToDefault();
         auto.driveStraight(0.2, -80, 0, 0.2);
@@ -66,9 +67,9 @@ public class RedAllience1 extends LinearOpMode {
         sleep(800);
         intake.stopCollectBall();
         auto.driveStraight(0.2, 20, 0, 0.2);
-        auto.strafe(0.6, 180, 1);
-        auto.turnToHeading(TURN_SPEED, -2, 1);
-        auto.driveStraight(1, -40, 0, 0.8);
+        auto.strafe(0.6, 185, 1);
+        auto.turnToHeading(TURN_SPEED, -3, 1);
+        auto.driveStraight(1, -45, 0, 0.8);
         shooter.moveToDefault();
         sleep(1000);
         shooter.moveToShoot();
