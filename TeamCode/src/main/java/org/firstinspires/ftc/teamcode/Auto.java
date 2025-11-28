@@ -213,7 +213,7 @@ public class Auto {
         return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
     }
 
-    /*public void sendTelemetry(boolean straight) {
+    public void sendTelemetry(boolean straight) {
 
         if (straight) {
             opMode.telemetry.addData("Motion", "Drive Straight");
@@ -228,5 +228,5 @@ public class Auto {
                 targetHeading, getHeading());
         opMode.telemetry.addData("Error : Steer Pwr", "%5.1f : %5.1f", headingError, turnSpeed);
         opMode.telemetry.update();
-    }*/
+    }
 }
