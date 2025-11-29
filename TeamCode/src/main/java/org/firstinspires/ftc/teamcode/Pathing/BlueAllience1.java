@@ -33,10 +33,15 @@ public class BlueAllience1 extends LinearOpMode {
             sleep(1000);
             shooter.moveToShoot();
             sleep(1000);
+            shooter.stop();
 
             //Segundo ciclo de shooting
-            shooter.stop();
             auto.driveStraight(0.6, 70, 0, 0.6);
+            shooter.moveToDefault();
+            sleep(600);
+            shooter.moveToShoot();
+            sleep(600);
+            shooter.stop();
             auto.turnToHeading(TURN_SPEED, 40, 1);
             auto.strafe(STRAFE_SPEED, 87, 0.6);
             intake.starCollectBall();
