@@ -9,7 +9,7 @@ public class Intake {
 
     private static final String INTAKE_NAME = "Intake";
 
-    private static double INTAKE_COLLECT = 0.8;
+    private static double INTAKE_COLLECT = 0.7;
 
     private static double INTAKE_STOP = 0;
 

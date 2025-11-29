@@ -38,12 +38,12 @@ public class BlueAllience1 extends LinearOpMode {
             //Segundo ciclo de shooting
             auto.driveStraight(0.6, 70, 0, 0.6);
             shooter.moveToDefault();
-            sleep(600);
+            sleep(400);
             shooter.moveToShoot();
-            sleep(600);
+            sleep(400);
             shooter.stop();
             auto.turnToHeading(TURN_SPEED, 40, 1);
-            auto.strafe(STRAFE_SPEED, 87, 0.6);
+            auto.strafe(STRAFE_SPEED, 87, 0.7);
             intake.starCollectBall();
             shooter.moveToDefault();
             auto.driveStraight(0.25, -70, 0, 0.25);
@@ -63,17 +63,17 @@ public class BlueAllience1 extends LinearOpMode {
             //Terceiro ciclo de shooting
             auto.driveStraight(0.6, 70, 0, 0.6);
             auto.turnToHeading(TURN_SPEED, 41, 1);
-            auto.strafe(STRAFE_SPEED, 180, 0.7);
+            auto.strafe(STRAFE_SPEED, 170, 0.7);
             intake.starCollectBall();
             shooter.moveToDefault();
             auto.driveStraight(0.2, -80, 0, 0.2);
             shooter.stop();
             sleep(800);
-            auto.driveStraight(0.2, 20, 0, 0.2);
+            auto.driveStraight(0.2, 10, 0, 0.2);
             auto.strafe(0.6, -180, 1);
             auto.turnToHeading(TURN_SPEED, 2, 1);
             intake.stopCollectBall();
-            auto.driveStraight(1, -40, 0, 0.8);
+            auto.driveStraight(1, -50, 0, 0.8);
             shooter.moveToDefault();
             sleep(1000);
             shooter.moveToShoot();
